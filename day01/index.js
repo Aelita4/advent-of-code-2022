@@ -19,10 +19,15 @@ input.split("\r\n").forEach(line => {
     }
 });
 
-let maxCalories = 0;
+let maxCalories = [0, 0, 0];
 
 elves.forEach(elf => {
-    if(elf > maxCalories) maxCalories = elf;
+    if(elf > maxCalories[0]) {
+        maxCalories[2] = maxCalories[1];
+        maxCalories[1] = maxCalories[0];
+        maxCalories[0] = elf;
+    }
 });
 
-console.log(maxCalories);
+console.log(`Elf with most calories: ${maxCalories[0]}`);
+console.log(`Top 3 elves calories: ${maxCalories.reduce((e, acc) => acc += e)}`);
