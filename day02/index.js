@@ -25,13 +25,16 @@ function getScore(opponent, player) {
 
     switch(player) {
         case "X":
-            score += 1;
+            //score += 1;
+            score += 0;
             break;
         case "Y":
-            score += 2;
+            //score += 2;
+            score += 3;
             break;
         case "Z":
-            score += 3;
+            //score += 3;
+            score += 6;
             break;
         
     }
@@ -40,39 +43,45 @@ function getScore(opponent, player) {
         case "A":
             switch(player) {
                 case "X":
+                    //score += 3;
                     score += 3;
                     break;
                 case "Y":
-                    score += 6;
+                    //score += 6;
+                    score += 1;
                     break;
                 case "Z":
-                    score += 0;
+                    //score += 0;
+                    score += 2;
                     break;
             }
             break;
         case "B":
             switch(player) {
                 case "X":
-                    score += 0;
+                    score += 1;
                     break;
                 case "Y":
-                    score += 3;
+                    score += 2;
                     break;
                 case "Z":
-                    score += 6;
+                    score += 3;
                     break;
             }
             break;
         case "C":
             switch(player) {
                 case "X":
-                    score += 6;
+                    //score += 6;
+                    score += 2;
                     break;
                 case "Y":
-                    score += 0;
+                    //score += 0;
+                    score += 3;
                     break;
                 case "Z":
-                    score += 3;
+                    //score += 3;
+                    score += 1;
                     break;
             }
             break;
