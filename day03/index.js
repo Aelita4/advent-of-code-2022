@@ -31,3 +31,36 @@ input.split('\n').forEach(rucksack => {
 
     console.log(prioritySum);
 });
+
+console.log();
+
+let countdown = 0, badgesSum = 0;
+const group = []
+
+input.split('\n').forEach(rucksack => {
+    group[countdown++] = rucksack;
+
+    if(countdown === 3) {
+        countdown = 0;
+        let charFound = false;
+
+        for(let i = 0; i < group[0].length; i++) {
+            for(let j = 0; j < group[1].length; j++) {
+                for(let k = 0; k < group[2].length; k++) {
+                    if(
+                      group[0].charAt(i) === group[1].charAt(j) &&
+                      group[1].charAt(j) === group[2].charAt(k) &&
+                      group[2].charAt(k) === group[0].charAt(i) &&  
+                      !charFound
+                    ) {
+                        badgesSum += priorities[group[0].charAt(i)];
+                        charFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        console.log(badgesSum);
+    }
+});
