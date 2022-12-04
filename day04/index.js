@@ -3,7 +3,7 @@ import { readFileSync } from "fs";
 const input = readFileSync("pairs.txt", "utf-8");
 const assignments = [];
 
-let pairs, countPairs = 0;
+let pairs, countPairs = 0, countOverlap = 0;
 
 input.split('\n').forEach(pair => {
     for(let i = 0; i < 2; i++) {
@@ -26,14 +26,19 @@ input.split('\n').forEach(pair => {
         assignments[1][i - 1] = i;
     }
 
-    let isOneInside = true, isTwoInside = true;
+    let isOneInside = true, isTwoInside = true, foundOverlap = false;
 
     for(let i = 0; i < 99; i++) {
         if(assignments[0][i] !== "." && assignments[0][i] !== assignments[1][i]) isOneInside = false;
         if(assignments[1][i] !== "." && assignments[0][i] !== assignments[1][i]) isTwoInside = false;
+        if(assignments[0][i] !== "." && assignments[0][i] === assignments[1][i] && !foundOverlap) {
+            foundOverlap = true;
+            countOverlap++;
+        }
     }
 
     if(isOneInside || isTwoInside) countPairs++;
 });
 
 console.log(countPairs)
+console.log(countOverlap)
