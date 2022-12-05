@@ -29,8 +29,14 @@ input.split('\n').forEach(line => {
 
         const howMany = parseInt(splitLine[1]), from = parseInt(splitLine[3]) - 1, to = parseInt(splitLine[5]) - 1;
 
+        const tempStack = [];
+
         for(let i = 0; i < howMany; i++) {
-            stacks[to].push(stacks[from].pop());
+            tempStack.push(stacks[from].pop());
+        }
+
+        for(let i = 0; i < howMany; i++) {
+            stacks[to].push(tempStack.pop())
         }
     }
 });
