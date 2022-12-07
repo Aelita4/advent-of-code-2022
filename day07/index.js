@@ -90,3 +90,37 @@ function part1(currentFolders) {
 
 
 console.log(part1(root.folders))
+
+console.log("=== PART 2 ===");
+
+function part2(currentFolders) {
+    const arr = [];
+
+    for(const [folderName, folderObj] of Object.entries(currentFolders)) {
+        arr.push(...part2(folderObj.folders));
+        arr.push({
+            name: folderObj.path,
+            size: folderObj.getCurrentDirectorySize()
+        })
+    }
+
+    return arr;
+}
+
+const total = 70_000_000;
+const required = 30_000_000;
+
+let free = total - root.getCurrentDirectorySize();
+let toDelete = required - free;
+
+const part2Array = part2(root.folders);
+
+part2Array.sort((a, b) => b.size - a.size);
+
+let sizeOfSmallestDeletableDirectory = 0;
+
+part2Array.forEach(folder => {
+    if(toDelete - folder.size < 0) sizeOfSmallestDeletableDirectory = folder.size;
+});
+
+console.log(sizeOfSmallestDeletableDirectory);
