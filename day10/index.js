@@ -2,9 +2,17 @@ import { readFileSync } from "fs";
 
 const input = readFileSync("instructions.txt", "utf-8");
 
+let display = "";
+
+function drawCRT(cycle, pointer) {
+    if((cycle - 1) % 40 === 0) display += "\n"
+
+    if(Math.abs(((cycle - 1) % 40) - pointer) <= 1) display += "#";
+    else display += ".";
+}
+
 let xRegister = 1;
 let cycle = 0;
-let strengthSum = 0;
 
 input.split('\n').forEach(line => {
     const instruction = line.split(' ');
@@ -12,17 +20,18 @@ input.split('\n').forEach(line => {
     switch(instruction[0]) {
         case "noop":
             cycle++;
-            if((cycle + 20) % 40 === 0) strengthSum += (cycle * xRegister);
+            drawCRT(cycle, xRegister);
             break;
         case "addx":
             cycle++;
-            if((cycle + 20) % 40 === 0) strengthSum += (cycle * xRegister);
+            drawCRT(cycle, xRegister);
             cycle++;
-            
-            if((cycle + 20) % 40 === 0) strengthSum += (cycle * xRegister);
+            drawCRT(cycle, xRegister);
             xRegister += parseInt(instruction[1]);
             break;
     }
+
+
 });
 
-console.log(strengthSum)
+console.log(display)
