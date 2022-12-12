@@ -64,12 +64,9 @@ function BFS(map, visited = [], toCheck = [], endingPos, dimensions) {
 
             while(1) {
                 currentPoint = whereFrom[currentPoint]
-                if(currentPoint === null) break;
+                if(currentPoint === null) return count;
                 count++;
             }
-
-            console.log(count)
-            break;
         }
     }
 }
@@ -77,16 +74,16 @@ function BFS(map, visited = [], toCheck = [], endingPos, dimensions) {
 let index = 0;
 
 const heightMap = [];
-const start = { x: 0, y: 0 };
+const startingPoints = [];
 const end = { x: 0, y: 0 };
 
 input.split('\n').forEach(line => {
     heightMap[index] = [...line.split("")];
+    if(line.includes("a")) startingPoints.push({ x: heightMap[index].indexOf("a"), y: index });
     if(line.includes("S")) { 
         const startingIndex = heightMap[index].indexOf("S")
         heightMap[index][startingIndex] = "a";
-        start.x = startingIndex;
-        start.y = index;
+        startingPoints.push({ x: startingIndex, y: index });
     }
     if(line.includes("E")) { 
         const endingIndex = heightMap[index].indexOf("E")
@@ -97,4 +94,10 @@ input.split('\n').forEach(line => {
     index++;
 });
 
-BFS(heightMap, [`${start.x}:${start.y}`], [`${start.x}:${start.y}`], end, { height: index, width: heightMap[0].length });
+const results = []
+
+startingPoints.forEach(start => {
+    results.push(BFS(heightMap, [`${start.x}:${start.y}`], [`${start.x}:${start.y}`], end, { height: index, width: heightMap[0].length }))
+});
+
+console.log(results.sort((a, b) => a - b)[0])
