@@ -27,13 +27,22 @@ function compareArrays(left, right) {
     }
 }
 
-let sum = 0;
-let currentPair = 1;
+const inputs = [];
+
+const beforeTwo = [];
+const between = []
+const afterSix = [];
 
 input.split('\n\n').forEach(line => {
     const pair = line.split('\n');
-    if(compareArrays(JSON.parse(pair[0]), JSON.parse(pair[1])) === 1) sum += currentPair;
-    currentPair++;
+    inputs.push(pair[0])
+    inputs.push(pair[1])
 });
 
-console.log(sum)
+inputs.forEach(i => {
+    if(compareArrays(JSON.parse(i), JSON.parse("[[2]]")) === 1) beforeTwo.push(i);
+    else if(compareArrays(JSON.parse("[[6]]"), JSON.parse(i)) === 1) afterSix.push(i);
+    else between.push(i)
+})
+
+console.log((beforeTwo.length + 1) * (beforeTwo.length + between.length + 2))
