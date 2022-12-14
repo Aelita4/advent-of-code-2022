@@ -54,14 +54,28 @@ input.split('\n').forEach(line => {
 
 const newField = [];
 
-for(let y = 0; y <= maxValues.y; y++) {
+newField[0] = [];
+newField[0][500 - minValues.x] = "+";
+newField[maxValues.y + 1] = [];
+newField[maxValues.y + 2] = [];
+
+minValues.x -= Math.abs(minValues.y - (maxValues.y + 2));
+maxValues.x += Math.abs(minValues.y - (maxValues.y + 2));
+
+for(let x = minValues.x; x <= maxValues.x; x++) {
+    newField[maxValues.y + 1][x - minValues.x] = ".";
+    newField[maxValues.y + 2][x - minValues.x] = "#";
+}
+
+maxValues.y += 2;
+
+for(let y = 0; y <= maxValues.y - 1; y++) {
     newField[y] = [];
     for(let x = minValues.x; x <= maxValues.x; x++) {
         if(typeof field[y] !== "object") field[y] = [];
         newField[y][x - minValues.x] = field[y][x] ?? "."
     }
 }
-newField[0][500 - minValues.x] = "+";
 
 let canStillFall = true;
 let countSand = 0;
@@ -96,6 +110,7 @@ while(true) {
             } else {
                 newField[currentY][currentX] = "o";
                 countSand++;
+                if(currentX === 500 - minValues.x && currentY === 0) canStillFall = false;
                 break;
             }
         }
